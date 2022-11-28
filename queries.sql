@@ -25,6 +25,9 @@ SELECT DISTINCT users.first_name FROM users
 INSERT INTO users (id, first_name, last_name, age) 
     VALUES ((SELECT id FROM users WHERE first_name='Bryson'), 'Davis', 'Gaunt', '23')
     ON CONFLICT (id) DO UPDATE SET first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name, age = EXCLUDED.age, updated_at=NOW();
+--Remove foreign key
+ALTER TABLE users_cars
+    DROP CONSTRAINT users_cars_car_id_fkey;
 --delete
 DELETE FROM users WHERE first_name='Bob';
 DELETE FROM cars WHERE make='Ford'AND model='F-150';
